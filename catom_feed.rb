@@ -26,7 +26,8 @@ class Default < Shebang::Command
 
     updated_at = Time.now
     items      = []
-    files      = Dir[File.join(option(:p), '**/*.{webm,mp4,jpg}')]
+    source     = File.expand_path(option(:p))
+    files      = Dir[File.join(source, '**/*.{webm,mp4,jpg}')]
 
     files.sort! do |left, right|
       File.mtime(right).to_i <=> File.mtime(left).to_i
@@ -39,7 +40,8 @@ class Default < Shebang::Command
         :hash       => Digest::SHA1.new.hexdigest(filename),
         :filename   => filename,
         :created_at => File.mtime(file),
-        :movie      => MOVIES.include?(File.extname(file))
+        :movie      => MOVIES.include?(File.extname(file)),
+        :path       => file.gsub(/^#{source}/, '')
       }
     end
 
