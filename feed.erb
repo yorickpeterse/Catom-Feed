@@ -36,7 +36,7 @@ xml:base="http://cat.yorickpeterse.com">
         <content type="xhtml">
             <div xmlns="http://www.w3.org/1999/xhtml">
                 <% if item[:movie] %>
-                <video controls="controls"
+                <video controls="controls" preload="none"
                 src="http://cat.yorickpeterse.com/movies/<%= item[:filename] %>"></video>
                 <% else %>
                 <img src="http://cat.yorickpeterse.com/images/<%= item[:filename] %>"
