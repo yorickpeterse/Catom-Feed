@@ -26,7 +26,9 @@ class Default < Shebang::Command
 
     updated_at = Time.now
     items      = []
-    files      = Dir[File.join(option(:p), '**/*.*')].sort do |left, right|
+    files      = Dir[File.join(option(:p), '**/*.{webm,mp4,jpg}')]
+
+    files.sort! do |left, right|
       File.mtime(right).to_i <=> File.mtime(left).to_i
     end
 
