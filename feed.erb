@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"
+xml:base="http://cat.yorickpeterse.com">
+    <!-- Base description of the feed -->
+    <id>tag:cat.yorickpeterse.com,2012-04-25:/feed/1335370610</id>
+    <title>cat.yorickpeterse.com</title>
+
+    <author>
+        <name>Yorick Peterse</name>
+        <email>yorickpeterse@gmail.com</email>
+    </author>
+
+    <category term="animals" label="Animals" />
+    <updated><%= updated_at.strftime('%Y-%m-%dT%H:%M:%SZ') %></updated>
+
+    <link href="http://cat.yorickpeterse.com/feed.atom" rel="self" />
+
+    <% items.each do |item| %>
+    <entry>
+        <id>tag:cat.yorickpeterse.com,<%= item[:hash] %>:/feed.atom/<%= item[:hash] %></id>
+
+        <title><%= item[:filename] %></title>
+        <author>
+            <name>Yorick Peterse</name>
+        </author>
+        <updated><%= item[:created_at].strftime('%Y-%m-%dT%H:%M:%SZ') %></updated>
+
+        <% if item[:movie] %>
+        <link href="http://cat.yorickpeterse.com/movies/<%= item[:filename] %>"
+        type="video/webm" rel="alternate" />
+        <% else %>
+        <link href="http://cat.yorickpeterse.com/images/<%= item[:filename] %>"
+        type="image/jpeg" rel="alternate" />
+        <% end %>
+
+        <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+                <% if item[:movie] %>
+                <video controls="controls"
+                src="http://cat.yorickpeterse.com/movies/<%= item[:filename] %>"></video>
+                <% else %>
+                <img src="http://cat.yorickpeterse.com/images/<%= item[:filename] %>"
+                alt="<%= item[:filename] %>" />
+                <% end %>
+            </div>
+        </content>
+    </entry>
+    <% end %>
+</feed>
