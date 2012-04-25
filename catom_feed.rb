@@ -27,7 +27,7 @@ class Default < Shebang::Command
     updated_at = Time.now
     items      = []
     files      = Dir[File.join(option(:p), '**/*.*')].sort do |left, right|
-      File.mtime(left).to_i <=> File.mtime(right).to_i
+      File.mtime(right).to_i <=> File.mtime(left).to_i
     end
 
     files.each do |file|
